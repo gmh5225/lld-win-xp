@@ -1,16 +1,18 @@
 # lld-win-xp
  Make lld to support win-xp
 
-```C++
 1.lld\COFF\Config.h
+
+```C++
 // Chang the value to 4 to support win-xp
   uint32_t majorOSVersion = 4;
 // Chang the value to 4 to support win-xp
   uint32_t majorSubsystemVersion = 4;
 ```
 
-```C++
 2.lld\COFF\DriverUtils.cpp
+
+```C++
 static std::string createDefaultXml() {
   std::string ret;
   raw_string_ostream os(ret);
