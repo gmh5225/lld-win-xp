@@ -1,0 +1,39 @@
+diff --git a/lld/COFF/Config.h b/lld/COFF/Config.h
+index 3917975e165d..b5af89dcdf4f 100644
+--- a/lld/COFF/Config.h
++++ b/lld/COFF/Config.h
+@@ -248,9 +248,11 @@ struct Configuration {
+   uint32_t minorImageVersion = 0;
+   // If changing the default os/subsys version here, update the default in
+   // the MinGW driver accordingly.
+-  uint32_t majorOSVersion = 6;
++  // Chang the value to 4 to support win-xp
++  uint32_t majorOSVersion = 4;
+   uint32_t minorOSVersion = 0;
+-  uint32_t majorSubsystemVersion = 6;
++  // Chang the value to 4 to support win-xp
++  uint32_t majorSubsystemVersion = 4;
+   uint32_t minorSubsystemVersion = 0;
+   uint32_t timestamp = 0;
+   uint32_t functionPadMin = 0;
+diff --git a/lld/COFF/DriverUtils.cpp b/lld/COFF/DriverUtils.cpp
+index 0921c8e27f5a..dd161090c354 100644
+--- a/lld/COFF/DriverUtils.cpp
++++ b/lld/COFF/DriverUtils.cpp
+@@ -386,11 +386,12 @@ static std::string createDefaultXml() {
+ 
+   // Emit the XML. Note that we do *not* verify that the XML attributes are
+   // syntactically correct. This is intentional for link.exe compatibility.
+-  os << "<?xml version=\"1.0\" standalone=\"yes\"?>\n"
+-     << "<assembly xmlns=\"urn:schemas-microsoft-com:asm.v1\"\n"
+-     << "          manifestVersion=\"1.0\">\n";
++  // Use microsoft xml to support win-xp.
++  os << "<?xml version='1.0' encoding='UTF-8' standalone='yes'?>\n"
++     << "<assembly xmlns='urn:schemas-microsoft-com:asm.v1' "
++        "manifestVersion='1.0'>\n";
+   if (config->manifestUAC) {
+-    os << "  <trustInfo>\n"
++    os << "  <trustInfo xmlns=\"urn:schemas-microsoft-com:asm.v3\">\n"
+        << "    <security>\n"
+        << "      <requestedPrivileges>\n"
+        << "         <requestedExecutionLevel level=" << config->manifestLevel
