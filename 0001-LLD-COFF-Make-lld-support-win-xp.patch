@@ -220,3 +220,41 @@ index 4910600bd3a1..26765e5e9637 100644
 + EMBED:   0240: 3E0A2020 3C2F6465 70656E64 656E6379  |>.  </dependency|
 + EMBED:   0250: 3E0A3C2F 61737365 6D626C79 3E0A      |>.</assembly>.|
 + EMBED: )
+diff --git a/lld/test/COFF/manifestinput.test b/lld/test/COFF/manifestinput.test
+index 04af80a13312..04b9949da0b1 100644
+--- a/lld/test/COFF/manifestinput.test
++++ b/lld/test/COFF/manifestinput.test
+@@ -9,7 +9,7 @@
+ # RUN:   -check-prefix TEST_EMBED
+ 
+ TEST_EMBED:          ResourceTableRVA: 0x2000
+-TEST_EMBED-NEXT:     ResourceTableSize: 0x2A0
++TEST_EMBED-NEXT:     ResourceTableSize: 0x2C8
+ TEST_EMBED-DAG:      Resources [
+ TEST_EMBED-NEXT:       Total Number of Resources: 1
+ TEST_EMBED-DAG:        Number of String Entries: 0
+diff --git a/lld/test/COFF/subsystem.test b/lld/test/COFF/subsystem.test
+index e9a6966a01da..ae5412804177 100644
+--- a/lld/test/COFF/subsystem.test
++++ b/lld/test/COFF/subsystem.test
+@@ -2,9 +2,9 @@
+ # RUN:   %p/Inputs/ret42.obj
+ # RUN: llvm-readobj --file-headers %t.exe | FileCheck -check-prefix=CHECK1 %s
+ 
+-CHECK1: MajorOperatingSystemVersion: 6
++CHECK1: MajorOperatingSystemVersion: 4
+ CHECK1: MinorOperatingSystemVersion: 0
+-CHECK1: MajorSubsystemVersion: 6
++CHECK1: MajorSubsystemVersion: 4
+ CHECK1: MinorSubsystemVersion: 0
+ CHECK1: Subsystem: IMAGE_SUBSYSTEM_WINDOWS_GUI
+ 
+@@ -37,7 +37,7 @@ CHECK3: MinorSubsystemVersion: 9
+ 
+ CHECK4: MajorOperatingSystemVersion: 1
+ CHECK4: MinorOperatingSystemVersion: 2
+-CHECK4: MajorSubsystemVersion: 6
++CHECK4: MajorSubsystemVersion: 4
+ CHECK4: MinorSubsystemVersion: 0
+ 
+ # RUN: lld-link /entry:main /out:%t.exe /osversion:1.2 /subsystem:default,3.4 \
