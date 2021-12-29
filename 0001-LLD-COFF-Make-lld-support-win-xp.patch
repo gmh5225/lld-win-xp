@@ -1,13 +1,3 @@
-From 42a86871a4a2ca1b70760a0fdf0242dcfed698ec Mon Sep 17 00:00:00 2001
-From: gmh <gmh>
-Date: Tue, 28 Dec 2021 19:19:27 +0800
-Subject: [PATCH] [LLD] [COFF] Make lld support win-xp
-
----
- lld/COFF/Config.h        | 6 ++++--
- lld/COFF/DriverUtils.cpp | 9 +++++----
- 2 files changed, 9 insertions(+), 6 deletions(-)
-
 diff --git a/lld/COFF/Config.h b/lld/COFF/Config.h
 index 3917975e165d..b5af89dcdf4f 100644
 --- a/lld/COFF/Config.h
@@ -47,6 +37,21 @@ index 0921c8e27f5a..dd161090c354 100644
         << "    <security>\n"
         << "      <requestedPrivileges>\n"
         << "         <requestedExecutionLevel level=" << config->manifestLevel
--- 
-
-
+diff --git a/lld/test/COFF/hello32.test b/lld/test/COFF/hello32.test
+index 6c3d72384beb..7859b9128424 100644
+--- a/lld/test/COFF/hello32.test
++++ b/lld/test/COFF/hello32.test
+@@ -34,11 +34,11 @@ HEADER-NEXT:   BaseOfData: 0x0
+ HEADER-NEXT:   ImageBase: 0x400000
+ HEADER-NEXT:   SectionAlignment: 4096
+ HEADER-NEXT:   FileAlignment: 512
+-HEADER-NEXT:   MajorOperatingSystemVersion: 6
++HEADER-NEXT:   MajorOperatingSystemVersion: 4
+ HEADER-NEXT:   MinorOperatingSystemVersion: 0
+ HEADER-NEXT:   MajorImageVersion: 0
+ HEADER-NEXT:   MinorImageVersion: 0
+-HEADER-NEXT:   MajorSubsystemVersion: 6
++HEADER-NEXT:   MajorSubsystemVersion: 4
+ HEADER-NEXT:   MinorSubsystemVersion: 0
+ HEADER-NEXT:   SizeOfImage: 20480
+ HEADER-NEXT:   SizeOfHeaders: 1024
