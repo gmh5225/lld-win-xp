@@ -1,8 +1,7 @@
 diff --git a/lld/COFF/Config.h b/lld/COFF/Config.h
-index 3917975e165d..b5af89dcdf4f 100644
 --- a/lld/COFF/Config.h
 +++ b/lld/COFF/Config.h
-@@ -248,9 +248,11 @@ struct Configuration {
+@@ -248,9 +248,11 @@
    uint32_t minorImageVersion = 0;
    // If changing the default os/subsys version here, update the default in
    // the MinGW driver accordingly.
@@ -17,10 +16,9 @@ index 3917975e165d..b5af89dcdf4f 100644
    uint32_t timestamp = 0;
    uint32_t functionPadMin = 0;
 diff --git a/lld/COFF/DriverUtils.cpp b/lld/COFF/DriverUtils.cpp
-index 0921c8e27f5a..dd161090c354 100644
 --- a/lld/COFF/DriverUtils.cpp
 +++ b/lld/COFF/DriverUtils.cpp
-@@ -386,11 +386,12 @@ static std::string createDefaultXml() {
+@@ -386,11 +386,12 @@
  
    // Emit the XML. Note that we do *not* verify that the XML attributes are
    // syntactically correct. This is intentional for link.exe compatibility.
@@ -38,10 +36,9 @@ index 0921c8e27f5a..dd161090c354 100644
         << "      <requestedPrivileges>\n"
         << "         <requestedExecutionLevel level=" << config->manifestLevel
 diff --git a/lld/test/COFF/hello32.test b/lld/test/COFF/hello32.test
-index 6c3d72384beb..7859b9128424 100644
 --- a/lld/test/COFF/hello32.test
 +++ b/lld/test/COFF/hello32.test
-@@ -34,11 +34,11 @@ HEADER-NEXT:   BaseOfData: 0x0
+@@ -34,11 +34,11 @@
  HEADER-NEXT:   ImageBase: 0x400000
  HEADER-NEXT:   SectionAlignment: 4096
  HEADER-NEXT:   FileAlignment: 512
@@ -56,7 +53,6 @@ index 6c3d72384beb..7859b9128424 100644
  HEADER-NEXT:   SizeOfImage: 20480
  HEADER-NEXT:   SizeOfHeaders: 1024
 diff --git a/lld/test/COFF/manifest.test b/lld/test/COFF/manifest.test
-index 4910600bd3a1..26765e5e9637 100644
 --- a/lld/test/COFF/manifest.test
 +++ b/lld/test/COFF/manifest.test
 @@ -7,10 +7,9 @@
@@ -73,7 +69,7 @@ index 4910600bd3a1..26765e5e9637 100644
  MANIFEST:     <security>
  MANIFEST:       <requestedPrivileges>
  MANIFEST:          <requestedExecutionLevel level='asInvoker' uiAccess='false'/>
-@@ -23,10 +22,9 @@ MANIFEST: </assembly>
+@@ -23,10 +22,9 @@
  # RUN:   /manifestuac:"level='requireAdministrator' uiAccess='true'" %t.obj
  # RUN: FileCheck -check-prefix=UAC %s < %t.exe.manifest
  
@@ -87,7 +83,7 @@ index 4910600bd3a1..26765e5e9637 100644
  UAC:     <security>
  UAC:       <requestedPrivileges>
  UAC:          <requestedExecutionLevel level='requireAdministrator' uiAccess='true'/>
-@@ -40,10 +38,9 @@ UAC: </assembly>
+@@ -40,10 +38,9 @@
  # RUN:   /manifestdependency:"foo='bar'" %t.obj
  # RUN: FileCheck -check-prefix=DEPENDENCY %s < %t.exe.manifest
  
@@ -101,7 +97,7 @@ index 4910600bd3a1..26765e5e9637 100644
  DEPENDENCY:     <security>
  DEPENDENCY:       <requestedPrivileges>
  DEPENDENCY:          <requestedExecutionLevel level='asInvoker' uiAccess='false'/>
-@@ -61,9 +58,8 @@ DEPENDENCY: </assembly>
+@@ -61,9 +58,8 @@
  # RUN:   /manifestdependency:"foo='bar'" %t.obj
  # RUN: FileCheck -check-prefix=NOUAC %s < %t.exe.manifest
  
@@ -113,7 +109,7 @@ index 4910600bd3a1..26765e5e9637 100644
  NOUAC:   <dependency>
  NOUAC:     <dependentAssembly>
  NOUAC:       <assemblyIdentity foo='bar' />
-@@ -74,9 +70,8 @@ NOUAC: </assembly>
+@@ -74,9 +70,8 @@
  # RUN: lld-link /manifest /out:%t.exe /entry:main /manifestuac:no %t.obj
  # RUN: FileCheck -check-prefix=NOUACNODEP %s < %t.exe.manifest
  
@@ -125,7 +121,7 @@ index 4910600bd3a1..26765e5e9637 100644
  NOUACNODEP: </assembly>
  
  # Several /manifestdependency: flags are naively dedup'd.
-@@ -87,10 +82,9 @@ NOUACNODEP: </assembly>
+@@ -87,10 +82,9 @@
  # RUN:   %t.obj
  # RUN: FileCheck -check-prefix=SEVERALDEPS %s < %t.exe.manifest
  
@@ -139,7 +135,7 @@ index 4910600bd3a1..26765e5e9637 100644
  SEVERALDEPS:     <security>
  SEVERALDEPS:       <requestedPrivileges>
  SEVERALDEPS:          <requestedExecutionLevel level='asInvoker' uiAccess='false'/>
-@@ -130,40 +124,43 @@ SEVERALDEPS: </assembly>
+@@ -130,40 +124,43 @@
  # RUN: llvm-readobj --coff-resources %t.exe \
  # RUN:     | FileCheck --check-prefix EMBED %s
  
@@ -221,7 +217,6 @@ index 4910600bd3a1..26765e5e9637 100644
 + EMBED:   0250: 3E0A3C2F 61737365 6D626C79 3E0A      |>.</assembly>.|
 + EMBED: )
 diff --git a/lld/test/COFF/manifestinput.test b/lld/test/COFF/manifestinput.test
-index 04af80a13312..04b9949da0b1 100644
 --- a/lld/test/COFF/manifestinput.test
 +++ b/lld/test/COFF/manifestinput.test
 @@ -9,7 +9,7 @@
@@ -234,7 +229,6 @@ index 04af80a13312..04b9949da0b1 100644
  TEST_EMBED-NEXT:       Total Number of Resources: 1
  TEST_EMBED-DAG:        Number of String Entries: 0
 diff --git a/lld/test/COFF/subsystem.test b/lld/test/COFF/subsystem.test
-index e9a6966a01da..ae5412804177 100644
 --- a/lld/test/COFF/subsystem.test
 +++ b/lld/test/COFF/subsystem.test
 @@ -2,9 +2,9 @@
@@ -249,7 +243,7 @@ index e9a6966a01da..ae5412804177 100644
  CHECK1: MinorSubsystemVersion: 0
  CHECK1: Subsystem: IMAGE_SUBSYSTEM_WINDOWS_GUI
  
-@@ -37,7 +37,7 @@ CHECK3: MinorSubsystemVersion: 9
+@@ -37,7 +37,7 @@
  
  CHECK4: MajorOperatingSystemVersion: 1
  CHECK4: MinorOperatingSystemVersion: 2
